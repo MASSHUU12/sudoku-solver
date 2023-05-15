@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia'
-import { createGrid } from '@/helpers/createGrid'
+import { defineStore } from 'pinia';
+import { createGrid } from '@/helpers/createGrid';
 
 export const useGridStore = defineStore('grid', {
   state: () => {
     return {
       grid: createGrid([9, 9], 0),
       selected: [0, 0]
-    }
+    };
   },
   actions: {
     /**
@@ -18,18 +18,18 @@ export const useGridStore = defineStore('grid', {
      */
     update([row, col]: number[], val: number): void {
       // Get the current value at the specified position
-      const currentVal = this.grid[row][col]
+      const currentVal = this.grid[row][col];
 
       // Check if the row index is out of bounds
-      if (row < 0 || row > this.grid.length) return
+      if (row < 0 || row > this.grid.length) return;
       // Check if the column index is out of bounds
-      if (col < 0 || col > this.grid[0].length) return
+      if (col < 0 || col > this.grid[0].length) return;
       // Check if the new value is out of range
-      if (val < 0 || val > 9) return
+      if (val < 0 || val > 9) return;
 
       // Update the value at the specified position in the grid array
       // If new value is the same as current value set value to 0
-      this.grid[row][col] = val === currentVal ? 0 : val
+      this.grid[row][col] = val === currentVal ? 0 : val;
     }
   }
-})
+});

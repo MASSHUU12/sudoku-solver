@@ -8,15 +8,15 @@
  * @return {*}  {unknown[][]} The created grid with the specified dimensions and default value.
  */
 export function createGrid([rows, cols]: number[], defaultValue: unknown): unknown[][] {
-  let grid: unknown[][] = []
+  let grid: unknown[][] = [];
 
   for (let i = 0; i < rows; i++) {
-    grid[i] = []
+    grid[i] = [];
 
     for (let j = 0; j < cols; j++) {
-      grid[i][j] = defaultValue
+      grid[i][j] = defaultValue;
     }
   }
 
-  return grid
+  return grid;
 }
