@@ -1,7 +1,10 @@
 <script setup lang="ts">
-function changeNumber(num: number): void {
-  console.log(num);
+import { useGridStore } from '@/stores/grid';
 
+const store = useGridStore();
+
+function changeNumber(num: number): void {
+  store.update(store.selected, num);
 }
 </script>
 
