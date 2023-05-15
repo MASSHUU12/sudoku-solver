@@ -16,17 +16,23 @@ const { grid, selected } = storeToRefs(store);
  */
 function select(row: number, col: number): void {
   store.selected = [row, col];
-
-  console.log(selected.value.toString());
-
 }
 </script>
 
 <template>
   <table class="border-collapse">
     <tr v-for="(row, rowIndex) in gridSize" :key="row" class="bg-slate-200 text-center">
-      <td @click="select(rowIndex, columnIndex)" v-for="(column, columnIndex) in gridSize" :key="column"
-        :class="`p-2 border border-gray-300 w-12 h-12 cursor-pointer bg-slate-${(selected[0] === rowIndex && selected[1] == columnIndex) ? '300' : '200'} ${(row % 3 === 0 && row !== gridSize) ? 'border-b-4' : ''} ${(column % 3 === 0 && column !== gridSize) ? 'border-r-4' : ''}`">
+      <td @click="select(rowIndex, columnIndex)" v-for="(column, columnIndex) in gridSize" :key="column" :class="[
+        'p-2',
+        'border',
+        'border-gray-300',
+        'w-12',
+        'h-12',
+        'cursor-pointer',
+        `bg-slate-${(selected[0] === rowIndex && selected[1] == columnIndex) ? '300' : '200'}`,
+        (row % 3 === 0 && row !== gridSize) ? 'border-b-4' : '',
+        (column % 3 === 0 && column !== gridSize) ? 'border-r-4' : '',
+      ].join(' ')">
         <span class="text-2xl font-light">
           <!-- Check if the value at the current grid position is 0, if not, render the value -->
           {{ grid[rowIndex][columnIndex] === 0
