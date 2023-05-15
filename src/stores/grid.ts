@@ -1,19 +1,10 @@
 import { defineStore } from 'pinia'
+import { createGrid } from '@/helpers/createGrid'
 
 export const useGridStore = defineStore('grid', {
   state: () => {
     return {
-      grid: [
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0]
-      ],
+      grid: createGrid([9, 9], 0),
       selected: [0, 0]
     }
   },
