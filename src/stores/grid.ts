@@ -1,8 +1,13 @@
 import { defineStore } from 'pinia';
 import { createGrid } from '@/helpers/createGrid';
 
+interface StoreProps {
+  grid: number[][];
+  selected: [number, number];
+}
+
 export const useGridStore = defineStore('grid', {
-  state: () => {
+  state: (): StoreProps => {
     return {
       grid: createGrid([9, 9], 0),
       selected: [0, 0]
@@ -12,11 +17,11 @@ export const useGridStore = defineStore('grid', {
     /**
      * Updates the value at the specified position in the grid array.
      *
-     * @param {number[]} data - An array containing the row and column indices.
+     * @param {[number, number]} data - An array containing the row and column indices.
      * @param {number} val - The new value to set at the specified position.
      * @returns {void}
      */
-    update([row, col]: number[], val: number): void {
+    update([row, col]: [number, number], val: number): void {
       // Get the current value at the specified position
       const currentVal = this.grid[row][col];
 
