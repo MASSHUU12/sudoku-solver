@@ -29,7 +29,8 @@ function select(row: number, col: number): void {
         'w-12',
         'h-12',
         'cursor-pointer',
-        `bg-slate-${(selected[0] === rowIndex && selected[1] == columnIndex) ? '300' : '200'}`,
+        'hover:bg-slate-300',
+        `bg-slate-${(selected[0] === rowIndex && selected[1] == columnIndex) ? '400' : '200'}`,
         (row % 3 === 0 && row !== gridSize) ? 'border-b-4' : '',
         (column % 3 === 0 && column !== gridSize) ? 'border-r-4' : '',
       ].join(' ')">
