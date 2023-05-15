@@ -18,14 +18,27 @@ export const useGridStore = defineStore('grid', {
     }
   },
   actions: {
-    update(data: number[], val: number): void {
-      const currentVal = this.grid[data[0]][data[1]]
+    /**
+     * Updates the value at the specified position in the grid array.
+     *
+     * @param {number[]} data - An array containing the row and column indices.
+     * @param {number} val - The new value to set at the specified position.
+     * @returns {void}
+     */
+    update([row, col]: number[], val: number): void {
+      // Get the current value at the specified position
+      const currentVal = this.grid[row][col]
 
-      if (data[0] < 0 || data[0] > this.grid.length) return
-      if (data[1] < 0 || data[1] > this.grid[0].length) return
+      // Check if the row index is out of bounds
+      if (row < 0 || row > this.grid.length) return
+      // Check if the column index is out of bounds
+      if (col < 0 || col > this.grid[0].length) return
+      // Check if the new value is out of range
       if (val < 0 || val > 9) return
 
-      this.grid[data[0]][data[1]] = val === currentVal ? 0 : val
+      // Update the value at the specified position in the grid array
+      // If new value is the same as current value set value to 0
+      this.grid[row][col] = val === currentVal ? 0 : val
     }
   }
 })
