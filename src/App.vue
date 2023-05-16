@@ -7,7 +7,7 @@ import ResetBtnVue from "./components/ResetBtn.vue";
 </script>
 
 <template>
-  <main class="min-h-screen flex flex-row justify-center items-center gap-4">
+  <main class="min-h-screen flex flex-col justify-center items-center gap-4 md:flex-row">
     <div class="flex flex-col gap-1">
       <Grid />
       <Status />
