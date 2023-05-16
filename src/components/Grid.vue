@@ -41,7 +41,7 @@ function select(row: number, col: number): void {
           (row % 3 === 0 && row !== gridSize) ? 'border-b-4' : '',
           (column % 3 === 0 && column !== gridSize) ? 'border-r-4' : '',
         ].join(' ')">
-        <span class="text-2xl font-light">
+        <span class="text-2xl font-light select-none">
           <!-- Check if the value at the current grid position is 0, if not, render the value -->
           {{ grid[rowIndex][columnIndex] === 0
             ? ''
