@@ -16,22 +16,34 @@ export class Sudoku {
   }
 
   /**
-   * Find and return 3x3 grid.
+   * Find and return the 3x3 grid containing the specified coordinates.
    *
    * @private
-   * @param {[number, number]} [row, col]
-   * @return {*}  {number[][]}
+   * @param {[number, number]} [row, col] - The coordinates of the cell within the Sudoku grid.
+   * @return {number[][]} - The 3x3 grid.
    * @memberof Sudoku
    */
   private getSmallGrid([x, y]: [number, number]): number[][] {
+    if (x < 0 || x >= 9 || y < 0 || y >= 9) {
+      throw new Error('Invalid coordinates.');
+    }
+
+    // Calculate the row and column indices of the top-left cell of the 3x3 grid
     const boxRow = Math.floor(x / 3);
     const boxCol = Math.floor(y / 3);
-    const smallGrid: number[][] = [];
 
+    // Create a 3x3 grid initialized with zeros
+    const smallGrid: number[][] = Array.from({ length: 3 }, () =>
+      Array.from({ length: 3 }, () => 0)
+    );
+
+    // Copy the values from the Sudoku grid into the small grid
     for (let i = 0; i < 3; i++) {
       const row = this.grid[boxRow * 3 + i];
 
-      smallGrid.push([row[boxCol * 3], row[boxCol * 3 + 1], row[boxCol * 3 + 2]]);
+      for (let j = 0; j < 3; j++) {
+        smallGrid[i][j] = row[boxCol * 3 + j];
+      }
     }
 
     return smallGrid;
