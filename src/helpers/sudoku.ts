@@ -10,9 +10,29 @@ export class Sudoku {
   }
 
   private canBePlaced([row, col]: [number, number], value: number): boolean {
-    console.log(this.existsInSmallGrid([row, col], value));
+    // console.log(this.existsInSmallGrid([row, col], value));
+    console.log(this.existsInXY([row, col], 8));
 
     return true;
+  }
+
+  /**
+   * Check if the specified value exists in the row or column containing the given cell coordinates.
+   *
+   * @private
+   * @param {[number, number]} [row, col] - The coordinates of the cell within the Sudoku grid.
+   * @param {number} valueToFind - The value to search for in the row or column.
+   * @return {boolean} - Returns true if the value exists in the row or column, false otherwise.
+   * @memberof Sudoku
+   */
+  private existsInXY([row, col]: [number, number], valueToFind: number): boolean {
+    // Check if the value exists in the row
+    if (this.grid[row].includes(valueToFind)) {
+      return true;
+    }
+
+    // Check if the value exists in the column
+    return this.grid.some((rowValues) => rowValues[col] === valueToFind);
   }
 
   /**
@@ -28,9 +48,7 @@ export class Sudoku {
     const smallGrid = this.getSmallGrid([row, col]);
 
     // Check if the value exists in any cell of the small grid
-    const exists = smallGrid.some((row) => row.includes(valueToFind));
-
-    return exists;
+    return smallGrid.some((row) => row.includes(valueToFind));
   }
 
   /**
