@@ -8,14 +8,23 @@ const solving = ref(false);
 
 function solve(): void {
   const store = useGridStore();
+  const sudoku = new Sudoku(store.grid);
 
   // Disable button when solving starts
   solving.value = true;
-  const sudoku = new Sudoku(store.grid);
-  solving.value = false; // Enable button when solving is finished
 
-  // Display solved Sudoku
-  store.$state.grid = sudoku.solve();
+  const start = performance.now();
+
+  // Try to solve Sudoku
+  const result = sudoku.solve();
+  const end = performance.now();
+
+  store.$state.grid = result.grid;
+
+  // Save how long website solved Sudoku
+  store.timeFinished = result.success ? end - start : -1;
+
+  solving.value = false; // Enable button when solving is finished
 }
 </script>
 

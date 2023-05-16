@@ -7,12 +7,14 @@ export class Sudoku {
     this.findClues();
   }
 
-  public solve(): number[][] {
-    // Solve Sudoku
-    this.backtracking();
-
-    // Return solved grid
-    return this.grid;
+  public solve(): {
+    grid: number[][];
+    success: boolean;
+  } {
+    return {
+      grid: this.grid, // Return grid
+      success: this.backtracking() // Solve Sudoku
+    };
   }
 
   /**

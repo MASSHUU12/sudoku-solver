@@ -6,6 +6,7 @@ import { useGridStore } from '@/stores/grid';
 function reset(): void {
   const store = useGridStore();
   store.$state.grid = createGrid([9, 9], 0);
+  store.timeFinished = 0;
 }
 </script>
 
