@@ -6,13 +6,25 @@ export class Sudoku {
   }
 
   public solve(): void {
-    this.canBePlaced([3, 1], 8);
+    console.log(this.canBePlaced([3, 1], 8));
   }
 
+  /**
+   * Check if the specified value can be placed in the given cell coordinates without violating Sudoku rules.
+   *
+   * @private
+   * @param {[number, number]} [row, col] - The coordinates of the cell within the Sudoku grid.
+   * @param {number} value - The value to check for placement.
+   * @return {boolean} - Returns true if the value can be placed, false otherwise.
+   * @memberof Sudoku
+   */
   private canBePlaced([row, col]: [number, number], value: number): boolean {
-    // console.log(this.existsInSmallGrid([row, col], value));
-    console.log(this.existsInXY([row, col], 8));
+    // Check if the value already exists in the 3x3 grid or the row/column
+    if (this.existsInSmallGrid([row, col], value) || this.existsInXY([row, col], value)) {
+      return false;
+    }
 
+    // If the value does not exist in the 3x3 grid or the row/column, it can be placed
     return true;
   }
 
