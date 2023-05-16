@@ -79,8 +79,8 @@ export class Sudoku {
     }
 
     // Calculate the row and column indices of the top-left cell of the 3x3 grid
-    const boxRow = Math.floor(x / 3);
-    const boxCol = Math.floor(y / 3);
+    const boxRow = Math.floor(x / 3) * 3;
+    const boxCol = Math.floor(y / 3) * 3;
 
     // Create a 3x3 grid initialized with zeros
     const smallGrid: number[][] = Array.from({ length: 3 }, () =>
@@ -89,10 +89,10 @@ export class Sudoku {
 
     // Copy the values from the Sudoku grid into the small grid
     for (let i = 0; i < 3; i++) {
-      const row = this.grid[boxRow * 3 + i];
+      const row = this.grid[boxRow + i];
 
       for (let j = 0; j < 3; j++) {
-        smallGrid[i][j] = row[boxCol * 3 + j];
+        smallGrid[i][j] = row[boxCol + j];
       }
     }
 
