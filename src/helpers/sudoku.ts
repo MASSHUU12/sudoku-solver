@@ -7,8 +7,43 @@ export class Sudoku {
     this.findClues();
   }
 
-  public solve(): void {
-    console.log(this.canBePlaced([3, 1], 8));
+  public solve(): number[][] {
+    // Solve Sudoku
+    this.backtracking();
+
+    // Return solved grid
+    return this.grid;
+  }
+
+  /**
+   * Recursive backtracking algorithm to solve the Sudoku puzzle.
+   *
+   * @private
+   * @return {*}  {boolean} Returns true if a solution is found, false otherwise.
+   * @memberof Sudoku
+   */
+  private backtracking(): boolean {
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (this.grid[row][col] === 0) {
+          for (let num = 1; num <= 9; num++) {
+            if (this.canBePlaced([row, col], num)) {
+              this.grid[row][col] = num;
+
+              // Recursively call backtracking to solve the puzzle
+              if (this.backtracking()) return true;
+
+              // Backtrack by resetting the cell to empty if the solution is not found
+              this.grid[row][col] = 0;
+            }
+          }
+          // Return false if all numbers from 1 to 9 cannot be placed at the cell
+          return false;
+        }
+      }
+    }
+    // Return true if all cells in the puzzle are filled (solution found)
+    return true;
   }
 
   /**

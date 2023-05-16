@@ -7,7 +7,8 @@ function solve(): void {
   const store = useGridStore();
   const sudoku = new Sudoku(store.grid);
 
-  sudoku.solve();
+  // Display solved Sudoku
+  store.$state.grid = sudoku.solve();
 }
 </script>
 
