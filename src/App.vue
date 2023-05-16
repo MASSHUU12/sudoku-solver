@@ -1,10 +1,11 @@
 <script setup lang="ts">
-// import HelloWorld from './components/HelloWorld.vue'
-// import TheWelcome from './components/TheWelcome.vue'
+import Grid from "./components/Grid.vue";
+import Keypad from "./components/Keypad.vue";
 </script>
 
 <template>
-  <main class="bg-black">
-    <p class="text-red-400">Hello World</p>
+  <main class="min-h-screen flex flex-row justify-center items-center gap-4">
+    <Grid />
+    <Keypad />
   </main>
 </template>
