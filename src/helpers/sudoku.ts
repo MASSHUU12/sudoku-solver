@@ -27,18 +27,10 @@ export class Sudoku {
   private existsInSmallGrid([row, col]: [number, number], valueToFind: number): boolean {
     const smallGrid = this.getSmallGrid([row, col]);
 
-    // Iterate through each cell in the small grid
-    for (let i = 0; i < 3; i++) {
-      for (let j = 0; j < 3; j++) {
-        if (smallGrid[i][j] === valueToFind) {
-          // If the value is found, return true
-          return true;
-        }
-      }
-    }
+    // Check if the value exists in any cell of the small grid
+    const exists = smallGrid.some((row) => row.includes(valueToFind));
 
-    // If the value is not found, return false
-    return false;
+    return exists;
   }
 
   /**
