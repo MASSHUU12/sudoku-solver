@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/MASSHUU12/sudoku-solver/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/MASSHUU12/sudoku-solver/actions/workflows/deploy.yml)
 
-Sudoku solving website based on Vite, Vue and TypeScript
+Sudoku solving website based on Vite, Vue and TypeScript.
 
 ## Getting Started
 
