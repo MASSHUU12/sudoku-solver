@@ -1,8 +1,10 @@
 export class Sudoku {
   private grid: number[][];
+  private clues: boolean[][] = [];
 
   constructor(grid: number[][]) {
     this.grid = grid;
+    this.findClues();
   }
 
   public solve(): void {
@@ -95,5 +97,21 @@ export class Sudoku {
     }
 
     return smallGrid;
+  }
+
+  /**
+   * Find originally placed clues
+   *
+   * @private
+   * @memberof Sudoku
+   */
+  private findClues(): void {
+    this.clues = Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => false));
+
+    for (let i = 0; i < 9; i++) {
+      for (let j = 0; j < 9; j++) {
+        if (this.grid[i][j] !== 0) this.clues[i][j] = true;
+      }
+    }
   }
 }
