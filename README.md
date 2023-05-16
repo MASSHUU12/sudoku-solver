@@ -1,71 +1,56 @@
-# sudoku-solver
+# Sudoku Solver
 
-This template should help get you started developing with Vue 3 in Vite.
+[![CI](https://github.com/MASSHUU12/sudoku-solver/actions/workflows/deploy.yml/badge.svg?branch=master)](https://github.com/MASSHUU12/sudoku-solver/actions/workflows/deploy.yml)
 
-## Recommended IDE Setup
+Sudoku solving website based on Vite, Vue and TypeScript.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Getting Started
 
-## Type Support for `.vue` Imports in TS
+### Prerequisites
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Before starting, ensure you have the following installed on your local machine:
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- Node.js
+- NPM or Yarn
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+### Installation
 
-## Customize configuration
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/MASSHUU12/sudoku-solver.git
+   ```
+2. Navigate to the project directory
+   ```bash
+   cd sudoku-solver
+   ```
+3. Install dependencies:
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
 
-## Project Setup
+### Development
 
-```sh
-npm install
-```
+To start the development server, run the following command:
 
-### Compile and Hot-Reload for Development
-
-```sh
+```bash
 npm run dev
+# or
+yarn dev
 ```
 
-### Type-Check, Compile and Minify for Production
+The development server should start running on http://localhost:5173. The page will reload automatically when changes are made to the code.
 
-```sh
+### Building for Production
+
+To build the application for production, run the following command:
+
+```bash
 npm run build
+# or
+yarn build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
-
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-npm run build
-
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+The built files will be located in the `dist` directory.

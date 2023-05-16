@@ -4,13 +4,15 @@ import { createGrid } from '@/helpers/createGrid';
 interface StoreProps {
   grid: number[][];
   selected: [number, number];
+  timeFinished: number;
 }
 
 export const useGridStore = defineStore('grid', {
   state: (): StoreProps => {
     return {
       grid: createGrid([9, 9], 0),
-      selected: [0, 0]
+      selected: [0, 0],
+      timeFinished: 0
     };
   },
   actions: {
