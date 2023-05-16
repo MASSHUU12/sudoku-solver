@@ -6,13 +6,39 @@ export class Sudoku {
   }
 
   public solve(): void {
-    console.log(this.canBePlaced([3, 1], 8));
+    this.canBePlaced([3, 1], 8);
   }
 
   private canBePlaced([row, col]: [number, number], value: number): boolean {
-    console.log(this.getSmallGrid([row, col]));
+    console.log(this.existsInSmallGrid([row, col], value));
 
     return true;
+  }
+
+  /**
+   * Check if the specified value exists in the 3x3 grid containing the given cell coordinates.
+   *
+   * @private
+   * @param {[number, number]} [row, col] - The coordinates of the cell within the Sudoku grid.
+   * @param {number} valueToFind - The value to search for in the grid.
+   * @return {boolean} - Returns true if the value exists in the grid, false otherwise.
+   * @memberof Sudoku
+   */
+  private existsInSmallGrid([row, col]: [number, number], valueToFind: number): boolean {
+    const smallGrid = this.getSmallGrid([row, col]);
+
+    // Iterate through each cell in the small grid
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (smallGrid[i][j] === valueToFind) {
+          // If the value is found, return true
+          return true;
+        }
+      }
+    }
+
+    // If the value is not found, return false
+    return false;
   }
 
   /**
@@ -47,11 +73,5 @@ export class Sudoku {
     }
 
     return smallGrid;
-  }
-
-  private checkSmallGrid([row, col]: [number, number], valueToFind: number): boolean {
-    const smallGrid = this.getSmallGrid([row, col]);
-
-    return true;
   }
 }
