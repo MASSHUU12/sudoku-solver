@@ -54,3 +54,7 @@ yarn build
 ```
 
 The built files will be located in the `dist` directory.
+
+## License
+
+This website is licensed under the MIT license. See the [LICENSE](https://github.com/MASSHUU12/sudoku-solver/blob/master/LICENSE) file for more information.
