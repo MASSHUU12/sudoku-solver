@@ -1,4 +1,8 @@
 {
+  "buttons": {
+    "solve": "Rozwiąż",
+    "reset": "Zresetuj"
+  },
   "footer": {
     "source_code": "Kod źródłowy można znaleźć w ",
     "repository": "repozytorium",
