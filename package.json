@@ -14,8 +14,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@intlify/unplugin-vue-i18n": "^0.10.0",
     "pinia": "^2.0.36",
-    "vue": "^3.3.2"
+    "vue": "^3.3.2",
+    "vue-i18n": "^9.2.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.33.0",
