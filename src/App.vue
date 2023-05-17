@@ -4,6 +4,10 @@ import Keypad from "./components/Keypad.vue";
 import Status from "./components/Status.vue";
 import SolveBtn from "./components/SolveBtn.vue";
 import ResetBtnVue from "./components/ResetBtn.vue";
+
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
 </script>
 
 <template>
@@ -19,13 +23,13 @@ import ResetBtnVue from "./components/ResetBtn.vue";
     </div>
   </main>
   <footer class="bg-slate-100 p-6">
-    <p>Source code can be found in the
+    <p>{{ t("footer.source_code") }}
       <a class="font-semibold underline" href="https://github.com/MASSHUU12/sudoku-solver" target="_blank"
-        rel="noopener noreferrer">repository</a>.
+        rel="noopener noreferrer">{{ t("footer.repository") }}</a>.
     </p>
-    <p>This website is licensed under
+    <p>{{ t("footer.licensed_under") }}
       <a class="font-semibold underline" href="https://github.com/MASSHUU12/sudoku-solver/blob/master/LICENSE"
-        target="_blank" rel="noopener noreferrer">MIT</a> license.
+        target="_blank" rel="noopener noreferrer">{{ t("footer.license") }}</a>.
     </p>
   </footer>
 </template>

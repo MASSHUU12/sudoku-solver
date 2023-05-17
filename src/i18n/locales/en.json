@@ -1,5 +1,8 @@
 {
   "footer": {
-    "source_code": "Source code can be found in the "
+    "source_code": "Source code can be found in the ",
+    "repository": "repository",
+    "licensed_under": "This site is available under the ",
+    "license": "MIT license"
   }
 }
