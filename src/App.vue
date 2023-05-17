@@ -18,4 +18,14 @@ import ResetBtnVue from "./components/ResetBtn.vue";
       <ResetBtnVue />
     </div>
   </main>
+  <footer class="bg-slate-100 p-6">
+    <p>Source code can be found in the
+      <a class="font-semibold underline" href="https://github.com/MASSHUU12/sudoku-solver" target="_blank"
+        rel="noopener noreferrer">repository</a>.
+    </p>
+    <p>This website is licensed under
+      <a class="font-semibold underline" href="https://github.com/MASSHUU12/sudoku-solver/blob/master/LICENSE"
+        target="_blank" rel="noopener noreferrer">MIT</a> license.
+    </p>
+  </footer>
 </template>
