@@ -3,6 +3,11 @@
     "solve": "Solve",
     "reset": "Reset"
   },
+  "status": {
+    "normal": "Click Solve button, and we will solve Sudoku for you!",
+    "solved": "Sudoku solved! Time: {time}s.",
+    "invalid": "Oops. It's impossible to solve this Sudoku!"
+  },
   "footer": {
     "source_code": "Source code can be found in the ",
     "repository": "repository",
