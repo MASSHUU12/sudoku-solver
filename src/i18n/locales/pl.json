@@ -1,0 +1,17 @@
+{
+  "buttons": {
+    "solve": "Rozwiąż",
+    "reset": "Zresetuj"
+  },
+  "status": {
+    "normal": "Kliknij Rozwiąż, a my rozwiążemy Sudoku za Ciebie!",
+    "solved": "Sudoku rozwiązane! Czas: {time}s.",
+    "invalid": "Ups. Rozwiązanie tego Sudoku jest niemożliwe!"
+  },
+  "footer": {
+    "source_code": "Kod źródłowy można znaleźć w ",
+    "repository": "repozytorium",
+    "licensed_under": "Ta strona jest dostępna na ",
+    "license": "licencji MIT"
+  }
+}

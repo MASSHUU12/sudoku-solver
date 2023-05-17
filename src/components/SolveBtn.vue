@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import Btn from './Btn.vue';
+import { useI18n } from "vue-i18n";
 import { Sudoku } from '@/helpers/sudoku';
 import { useGridStore } from '@/stores/grid';
 
+const { t } = useI18n();
 const solving = ref(false);
 
 function solve(): void {
@@ -29,5 +31,5 @@ function solve(): void {
 </script>
 
 <template>
-  <Btn @click="solve" :disabled="solving">Solve</Btn>
+  <Btn @click="solve" :disabled="solving">{{ t("buttons.solve") }}</Btn>
 </template>
