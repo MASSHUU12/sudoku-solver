@@ -24,19 +24,20 @@ function changeTemplate(e: Event): void {
   const selectedValue = (e.target as HTMLSelectElement).value;
   const selectedTemplate = templates as Templates;
 
-  if (selectedValue !== "") {
-    // Get the number of templates for the selected value
-    const numOfTemplates = selectedTemplate[selectedValue].length;
+  if (selectedValue === "")
+    return;
 
-    // Generate a random index for selecting a template
-    const randomTemplateIndex = Math.floor(Math.random() * numOfTemplates);
+  // Get the number of templates for the selected value
+  const numOfTemplates = selectedTemplate[selectedValue].length;
 
-    // Reset grid to the initial state
-    store.$reset();
+  // Generate a random index for selecting a template
+  const randomTemplateIndex = Math.floor(Math.random() * numOfTemplates);
 
-    // Set the selected template in the grid store
-    store.$state.grid = selectedTemplate[selectedValue][randomTemplateIndex];
-  }
+  // Reset grid to the initial state
+  store.$reset();
+
+  // Set the selected template in the grid store
+  store.$state.grid = selectedTemplate[selectedValue][randomTemplateIndex];
 }
 </script>
 
