@@ -1,9 +1,39 @@
 <script setup lang="ts">
+import { useGridStore } from '@/stores/grid';
+import templates from "@/templates/templates.json";
 
+const store = useGridStore();
+
+interface Templates {
+  // This informs TypeScript that any string can be used
+  // as an index to retrieve values from the templates object.
+  [key: string]: number[][][];
+  easy: number[][][];
+  medium: number[][][];
+  hard: number[][][];
+  expert: number[][][];
+  evil: number[][][];
+}
+
+/**
+ * Change the template based on the selected value.
+ * @param {Event} e - The event object.
+ * @returns {void}
+ */
 function changeTemplate(e: Event): void {
   const selectedValue = (e.target as HTMLSelectElement).value;
-  console.log(selectedValue);
+  const selectedTemplate = templates as Templates;
 
+  if (selectedValue !== "") {
+    // Get the number of templates for the selected value
+    const numOfTemplates = selectedTemplate[selectedValue].length;
+
+    // Generate a random index for selecting a template
+    const randomTemplateIndex = Math.floor(Math.random() * numOfTemplates);
+
+    // Set the selected template in the grid store
+    store.$state.grid = selectedTemplate[selectedValue][randomTemplateIndex];
+  }
 }
 </script>
 
