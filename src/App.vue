@@ -4,6 +4,7 @@ import Keypad from "./components/Keypad.vue";
 import Status from "./components/Status.vue";
 import SolveBtn from "./components/SolveBtn.vue";
 import ResetBtnVue from "./components/ResetBtn.vue";
+import ExamplesSwitchVue from "./components/ExamplesSwitch.vue";
 
 import { useI18n } from "vue-i18n";
 
@@ -13,6 +14,7 @@ const { t } = useI18n();
 <template>
   <main class="min-h-screen flex flex-col justify-center items-center gap-4 md:flex-row">
     <div class="flex flex-col gap-1">
+      <ExamplesSwitchVue />
       <Grid />
       <Status />
     </div>
