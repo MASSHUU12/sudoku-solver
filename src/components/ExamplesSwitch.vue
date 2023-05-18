@@ -31,6 +31,9 @@ function changeTemplate(e: Event): void {
     // Generate a random index for selecting a template
     const randomTemplateIndex = Math.floor(Math.random() * numOfTemplates);
 
+    // Reset grid to the initial state
+    store.$reset();
+
     // Set the selected template in the grid store
     store.$state.grid = selectedTemplate[selectedValue][randomTemplateIndex];
   }
