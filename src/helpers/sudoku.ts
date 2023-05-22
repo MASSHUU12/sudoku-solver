@@ -56,6 +56,7 @@ export class Sudoku {
         grid: this.grid, // Return grid
         success: this.backtracking() // Solve Sudoku
       };
+
     return {
       grid: this.grid,
       success: false
@@ -116,19 +117,20 @@ export class Sudoku {
     const [row, col] = cell;
     const affectedCells: number[][] = [];
 
-    // Update row constraints
-    for (let c = 0; c < 9; c++) {
-      if (c !== col && this.grid[row][c] === 0) {
-        this.grid[row][c] = this.eliminatePossibleValue([row, c], num);
-        affectedCells.push([row, c]);
+    const updateCell = (r: number, c: number) => {
+      if (this.grid[r][c] === 0) {
+        this.grid[r][c] = this.eliminatePossibleValue([r, c], num);
+        affectedCells.push([r, c]);
       }
-    }
+    };
 
-    // Update column constraints
-    for (let r = 0; r < 9; r++) {
-      if (r !== row && this.grid[r][col] === 0) {
-        this.grid[r][col] = this.eliminatePossibleValue([r, col], num);
-        affectedCells.push([r, col]);
+    // Update row and column constraints
+    for (let i = 0; i < 9; i++) {
+      if (i !== row) {
+        updateCell(i, col); // Update column constraints
+      }
+      if (i !== col) {
+        updateCell(row, i); // Update row constraints
       }
     }
 
@@ -137,9 +139,8 @@ export class Sudoku {
     const boxStartCol = this.getBoxIndex(col);
     for (let r = boxStartRow; r < boxStartRow + 3; r++) {
       for (let c = boxStartCol; c < boxStartCol + 3; c++) {
-        if (r !== row && c !== col && this.grid[r][c] === 0) {
-          this.grid[r][c] = this.eliminatePossibleValue([r, c], num);
-          affectedCells.push([r, c]);
+        if (r !== row && c !== col) {
+          updateCell(r, c);
         }
       }
     }
@@ -171,15 +172,13 @@ export class Sudoku {
   private eliminatePossibleValue(cell: number[], num: number): number {
     const possibleValues = this.getPossibleValues(cell);
     const index = possibleValues.indexOf(num);
+
     if (index !== -1) {
       possibleValues.splice(index, 1);
     }
 
-    if (possibleValues.length === 1) {
-      return possibleValues[0];
-    }
-
-    return 0; // Still multiple possibilities, keep the cell empty
+    // If 0: Still multiple possibilities, keep the cell empty
+    return possibleValues.length === 1 ? possibleValues[0] : 0;
   }
 
   /**
