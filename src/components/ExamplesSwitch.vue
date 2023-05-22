@@ -29,6 +29,7 @@ function changeTemplate(e: Event): void {
     store.$reset();
     return;
   }
+  store.$reset();
 
   // Get the number of templates for the selected value
   const numOfTemplates = selectedTemplate[selectedValue].length;
