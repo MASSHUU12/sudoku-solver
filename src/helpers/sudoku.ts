@@ -155,14 +155,14 @@ export class Sudoku {
    * @return {number[][]} - The 3x3 grid.
    * @memberof Sudoku
    */
-  private getSmallGrid([x, y]: [number, number]): number[][] {
-    if (x < 0 || x >= 9 || y < 0 || y >= 9) {
+  private getSmallGrid([row, col]: [number, number]): number[][] {
+    if (row < 0 || row >= 9 || col < 0 || col >= 9) {
       throw new Error('Invalid coordinates.');
     }
 
     // Calculate the row and column indices of the top-left cell of the 3x3 grid
-    const boxRow = Math.floor(x / 3) * 3;
-    const boxCol = Math.floor(y / 3) * 3;
+    const boxRow = Math.floor(row / 3) * 3;
+    const boxCol = Math.floor(col / 3) * 3;
 
     // Create a 3x3 grid initialized with zeros
     const smallGrid: number[][] = Array.from({ length: 3 }, () =>
