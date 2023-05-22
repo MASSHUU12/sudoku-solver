@@ -27,7 +27,7 @@ export class Sudoku {
         if (num === 0) continue; // Skip empty cells
 
         const mask = 1 << num; // Create a mask for the number
-        const subgridIndex = Math.floor(row / 3) * 3 + Math.floor(col / 3); // Calculate the subgrid index
+        const subgridIndex = this.getBoxIndex(row) + Math.floor(col / 3); // Calculate the subgrid index
 
         // Check for duplicate number in row, column, or subgrid
         if (
@@ -83,21 +83,117 @@ export class Sudoku {
     });
 
     const [row, col] = emptyCells[0];
+    const possibleValues = this.getPossibleValues([row, col]);
 
-    for (let num = 1; num <= 9; num++) {
-      if (this.canBePlaced([row, col], num)) {
-        this.grid[row][col] = num;
+    for (const num of possibleValues) {
+      this.grid[row][col] = num;
 
-        // Recursively call backtracking to solve the puzzle
-        if (this.backtracking()) return true;
+      // Apply constraint propagation
+      const affectedCells = this.updateConstraints([row, col], num);
 
-        // Backtrack by resetting the cell to empty if the solution is not found
-        this.grid[row][col] = 0;
-      }
+      // Recursively call backtracking to solve the puzzle
+      if (this.backtracking()) return true;
+
+      // Backtrack by resetting the cell to empty and restoring constraints
+      this.grid[row][col] = 0;
+      this.restoreConstraints(affectedCells);
     }
 
     // Return false if all numbers from 1 to 9 cannot be placed at the cell
     return false;
+  }
+
+  /**
+   * Update the constraints after placing a number in a cell.
+   *
+   * @private
+   * @param {number[]} cell The cell coordinates [row, col].
+   * @param {number} num The number placed in the cell.
+   * @return {number[][]} An array of affected cell coordinates [row, col].
+   * @memberof Sudoku
+   */
+  private updateConstraints(cell: number[], num: number): number[][] {
+    const [row, col] = cell;
+    const affectedCells: number[][] = [];
+
+    // Update row constraints
+    for (let c = 0; c < 9; c++) {
+      if (c !== col && this.grid[row][c] === 0) {
+        this.grid[row][c] = this.eliminatePossibleValue([row, c], num);
+        affectedCells.push([row, c]);
+      }
+    }
+
+    // Update column constraints
+    for (let r = 0; r < 9; r++) {
+      if (r !== row && this.grid[r][col] === 0) {
+        this.grid[r][col] = this.eliminatePossibleValue([r, col], num);
+        affectedCells.push([r, col]);
+      }
+    }
+
+    // Update box constraints
+    const boxStartRow = this.getBoxIndex(row);
+    const boxStartCol = this.getBoxIndex(col);
+    for (let r = boxStartRow; r < boxStartRow + 3; r++) {
+      for (let c = boxStartCol; c < boxStartCol + 3; c++) {
+        if (r !== row && c !== col && this.grid[r][c] === 0) {
+          this.grid[r][c] = this.eliminatePossibleValue([r, c], num);
+          affectedCells.push([r, c]);
+        }
+      }
+    }
+
+    return affectedCells;
+  }
+
+  /**
+   * Calculate index of the 3x3 grid.
+   *
+   * @private
+   * @param {number} num Row/col number.
+   * @return {*}  {number}
+   * @memberof Sudoku
+   */
+  private getBoxIndex(num: number): number {
+    return Math.floor(num / 3) * 3;
+  }
+
+  /**
+   * Eliminate a possible value from the given cell's set of possible values.
+   *
+   * @private
+   * @param {number[]} cell The cell coordinates [row, col].
+   * @param {number} num The number to eliminate.
+   * @return {number} The new value of the cell after elimination.
+   * @memberof Sudoku
+   */
+  private eliminatePossibleValue(cell: number[], num: number): number {
+    const possibleValues = this.getPossibleValues(cell);
+    const index = possibleValues.indexOf(num);
+    if (index !== -1) {
+      possibleValues.splice(index, 1);
+    }
+
+    if (possibleValues.length === 1) {
+      return possibleValues[0];
+    }
+
+    return 0; // Still multiple possibilities, keep the cell empty
+  }
+
+  /**
+   * Restore the constraints after backtracking from a failed attempt.
+   *
+   * @private
+   * @param {number[][]} cells The array of affected cell coordinates.
+   * @memberof Sudoku
+   */
+  private restoreConstraints(cells: number[][]): void {
+    for (const cell of cells) {
+      const [row, col] = cell;
+      this.grid[row][col] = 0;
+    }
   }
 
   /**
@@ -204,8 +300,8 @@ export class Sudoku {
     }
 
     // Calculate the row and column indices of the top-left cell of the 3x3 grid
-    const boxRow = Math.floor(row / 3) * 3;
-    const boxCol = Math.floor(col / 3) * 3;
+    const boxRow = this.getBoxIndex(row);
+    const boxCol = this.getBoxIndex(col);
 
     // Create a 3x3 grid initialized with zeros
     const smallGrid: number[][] = Array.from({ length: 3 }, () =>
