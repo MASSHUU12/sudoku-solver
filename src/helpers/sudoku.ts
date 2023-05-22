@@ -7,21 +7,6 @@ export class Sudoku {
     this.findClues();
   }
 
-  public solve(): {
-    grid: number[][];
-    success: boolean;
-  } {
-    if (this.isValidSudoku())
-      return {
-        grid: this.grid, // Return grid
-        success: this.backtracking() // Solve Sudoku
-      };
-    return {
-      grid: this.grid,
-      success: false
-    };
-  }
-
   /**
    * Checks if the Sudoku board is valid.
    *
@@ -62,6 +47,21 @@ export class Sudoku {
     return true; // Sudoku board is valid
   }
 
+  public solve(): {
+    grid: number[][];
+    success: boolean;
+  } {
+    if (this.isValidSudoku())
+      return {
+        grid: this.grid, // Return grid
+        success: this.backtracking() // Solve Sudoku
+      };
+    return {
+      grid: this.grid,
+      success: false
+    };
+  }
+
   /**
    * Recursive backtracking algorithm to solve the Sudoku puzzle.
    *
@@ -70,27 +70,70 @@ export class Sudoku {
    * @memberof Sudoku
    */
   private backtracking(): boolean {
-    for (let row = 0; row < 9; row++) {
-      for (let col = 0; col < 9; col++) {
-        if (this.grid[row][col] === 0) {
-          for (let num = 1; num <= 9; num++) {
-            if (this.canBePlaced([row, col], num)) {
-              this.grid[row][col] = num;
+    const emptyCells = this.findEmptyCells();
 
-              // Recursively call backtracking to solve the puzzle
-              if (this.backtracking()) return true;
+    // All cells filled (solution found)
+    if (emptyCells.length === 0) return true;
 
-              // Backtrack by resetting the cell to empty if the solution is not found
-              this.grid[row][col] = 0;
-            }
-          }
-          // Return false if all numbers from 1 to 9 cannot be placed at the cell
-          return false;
-        }
+    // Sort empty cells based on heuristic (e.g., number of possible values)
+    emptyCells.sort((a, b) => {
+      const numPossibilitiesA = this.getPossibleValues(a).length;
+      const numPossibilitiesB = this.getPossibleValues(b).length;
+      return numPossibilitiesA - numPossibilitiesB;
+    });
+
+    const [row, col] = emptyCells[0];
+
+    for (let num = 1; num <= 9; num++) {
+      if (this.canBePlaced([row, col], num)) {
+        this.grid[row][col] = num;
+
+        // Recursively call backtracking to solve the puzzle
+        if (this.backtracking()) return true;
+
+        // Backtrack by resetting the cell to empty if the solution is not found
+        this.grid[row][col] = 0;
       }
     }
-    // Return true if all cells in the puzzle are filled (solution found)
-    return true;
+
+    // Return false if all numbers from 1 to 9 cannot be placed at the cell
+    return false;
+  }
+
+  /**
+   * Find all empty cells in the Sudoku grid.
+   *
+   * @private
+   * @return {*}  {number[][]} An array of empty cell coordinates [row, col].
+   * @memberof Sudoku
+   */
+  private findEmptyCells(): number[][] {
+    const emptyCells: number[][] = [];
+
+    for (let row = 0; row < 9; row++) {
+      for (let col = 0; col < 9; col++) {
+        if (this.grid[row][col] === 0) emptyCells.push([row, col]);
+      }
+    }
+    return emptyCells;
+  }
+
+  /**
+   * Get the possible values that can be placed in a given cell.
+   *
+   * @private
+   * @param {number[]} cell The cell coordinates [row, col].
+   * @return {*}  {number[]} An array of possible values.
+   * @memberof Sudoku
+   */
+  private getPossibleValues(cell: number[]): number[] {
+    const [row, col] = cell;
+    const possibleValues: number[] = [];
+
+    for (let num = 1; num <= 9; num++) {
+      if (this.canBePlaced([row, col], num)) possibleValues.push(num);
+    }
+    return possibleValues;
   }
 
   /**
