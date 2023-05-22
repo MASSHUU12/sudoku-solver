@@ -13,5 +13,13 @@
     "repository": "repozytorium",
     "licensed_under": "Ta strona jest dostępna na ",
     "license": "licencji MIT"
+  },
+  "examples": {
+    "examples": "Przykłady",
+    "easy": "Łatwe",
+    "medium": "Średnie",
+    "hard": "Trudne",
+    "expert": "Ekspert",
+    "evil": "Złe"
   }
 }
