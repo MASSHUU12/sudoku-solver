@@ -117,4 +117,26 @@ describe('Sudoku', () => {
       expect(sudoku['grid']).toEqual(grid);
     });
   });
+
+  describe('getBoxIndex', () => {
+    it('should return 0 when num is 0', () => {
+      expect(new Sudoku([])['getBoxIndex'](0)).toBe(0);
+    });
+
+    it('should return 3 when num is 5', () => {
+      expect(new Sudoku([])['getBoxIndex'](5)).toBe(3);
+    });
+
+    it('should return 6 when num is 8', () => {
+      expect(new Sudoku([])['getBoxIndex'](8)).toBe(6);
+    });
+
+    it('should return 0 when num is 2', () => {
+      expect(new Sudoku([])['getBoxIndex'](2)).toBe(0);
+    });
+
+    it('should return 3 when num is 4', () => {
+      expect(new Sudoku([])['getBoxIndex'](4)).toBe(3);
+    });
+  });
 });
