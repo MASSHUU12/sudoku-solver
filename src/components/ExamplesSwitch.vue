@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useGridStore } from '@/stores/grid';
 import templates from "@/templates/templates.json";
+import { useI18n } from "vue-i18n";
 
+const { t } = useI18n();
 const store = useGridStore();
 
 interface Templates {
@@ -44,11 +46,11 @@ function changeTemplate(e: Event): void {
 
 <template>
   <select @change="(e: Event) => changeTemplate(e)" class="bg-slate-200 p-2 rounded-md mb-2 cursor-pointer">
-    <option value="" selected>Templates</option>
-    <option value="easy">Easy</option>
-    <option value="medium">Medium</option>
-    <option value="hard">Hard</option>
-    <option value="expert">Expert</option>
-    <option value="evil">Evil</option>
+    <option value="" selected>{{ t("examples.examples") }}</option>
+    <option value="easy">{{ t("examples.easy") }}</option>
+    <option value="medium">{{ t("examples.medium") }}</option>
+    <option value="hard">{{ t("examples.hard") }}</option>
+    <option value="expert">{{ t("examples.expert") }}</option>
+    <option value="evil">{{ t("examples.evil") }}</option>
   </select>
 </template>

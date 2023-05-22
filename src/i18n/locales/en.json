@@ -13,5 +13,13 @@
     "repository": "repository",
     "licensed_under": "This site is available under the ",
     "license": "MIT license"
+  },
+  "examples": {
+    "examples": "Examples",
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard",
+    "expert": "Expert",
+    "evil": "Evil"
   }
 }
