@@ -7,6 +7,22 @@ export class Sudoku {
     this.findClues();
   }
 
+  public solve(): {
+    grid: number[][];
+    success: boolean;
+  } {
+    if (this.isValidSudoku())
+      return {
+        grid: this.grid, // Return grid
+        success: this.backtracking() // Solve Sudoku
+      };
+
+    return {
+      grid: this.grid,
+      success: false
+    };
+  }
+
   /**
    * Checks if the Sudoku board is valid.
    *
@@ -45,22 +61,6 @@ export class Sudoku {
     }
 
     return true; // Sudoku board is valid
-  }
-
-  public solve(): {
-    grid: number[][];
-    success: boolean;
-  } {
-    if (this.isValidSudoku())
-      return {
-        grid: this.grid, // Return grid
-        success: this.backtracking() // Solve Sudoku
-      };
-
-    return {
-      grid: this.grid,
-      success: false
-    };
   }
 
   /**
@@ -326,6 +326,8 @@ export class Sudoku {
    * @memberof Sudoku
    */
   private findClues(): void {
+    if (this.grid.length <= 0) return;
+
     this.clues = Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => false));
 
     for (let i = 0; i < 9; i++) {
