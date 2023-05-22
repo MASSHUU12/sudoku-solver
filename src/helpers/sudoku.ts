@@ -11,10 +11,55 @@ export class Sudoku {
     grid: number[][];
     success: boolean;
   } {
+    if (this.isValidSudoku())
+      return {
+        grid: this.grid, // Return grid
+        success: this.backtracking() // Solve Sudoku
+      };
     return {
-      grid: this.grid, // Return grid
-      success: this.backtracking() // Solve Sudoku
+      grid: this.grid,
+      success: false
     };
+  }
+
+  /**
+   * Checks if the Sudoku board is valid.
+   *
+   * @private
+   * @return {*}  {boolean} True if the Sudoku board is valid, false otherwise.
+   * @memberof Sudoku
+   */
+  private isValidSudoku(): boolean {
+    const size = 9;
+    const rows = new Array(size).fill(0); // Array to store the mask of numbers in each row
+    const cols = new Array(size).fill(0); // Array to store the mask of numbers in each column
+    const subgrids = new Array(size).fill(0); // Array to store the mask of numbers in each subgrid
+
+    for (let row = 0; row < size; row++) {
+      for (let col = 0; col < size; col++) {
+        const num = this.grid[row][col]; // Get the number at the current cell
+
+        if (num === 0) continue; // Skip empty cells
+
+        const mask = 1 << num; // Create a mask for the number
+        const subgridIndex = Math.floor(row / 3) * 3 + Math.floor(col / 3); // Calculate the subgrid index
+
+        // Check for duplicate number in row, column, or subgrid
+        if (
+          (rows[row] & mask) !== 0 || // Check if the number already exists in the row
+          (cols[col] & mask) !== 0 || // Check if the number already exists in the column
+          (subgrids[subgridIndex] & mask) !== 0 // Check if the number already exists in the subgrid
+        ) {
+          return false; // Duplicate number found, Sudoku board is invalid
+        }
+
+        rows[row] |= mask; // Add the number to the row mask
+        cols[col] |= mask; // Add the number to the column mask
+        subgrids[subgridIndex] |= mask; // Add the number to the subgrid mask
+      }
+    }
+
+    return true; // Sudoku board is valid
   }
 
   /**
