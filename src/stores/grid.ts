@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia';
+import type { template } from '@/typings/types';
 import { createGrid } from '@/helpers/createGrid';
 
 interface StoreProps {
   grid: number[][];
   selected: [number, number];
   timeFinished: number;
+  template: template;
 }
 
 export const useGridStore = defineStore('grid', {
@@ -12,7 +14,8 @@ export const useGridStore = defineStore('grid', {
     return {
       grid: createGrid([9, 9], 0),
       selected: [-1, -1],
-      timeFinished: 0
+      timeFinished: 0,
+      template: ''
     };
   },
   actions: {
