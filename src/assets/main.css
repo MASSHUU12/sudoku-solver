@@ -37,3 +37,11 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.slate-400 {
+  background-color: rgb(148, 163, 184);
+}
+
+.slate-200 {
+  background-color: rgb(226, 232, 240);
+}
