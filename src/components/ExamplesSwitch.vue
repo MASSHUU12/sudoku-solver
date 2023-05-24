@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
 import { useGridStore } from '@/stores/grid';
 import templates from "@/templates/templates.json";
-import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 const store = useGridStore();
@@ -19,6 +19,7 @@ interface Templates {
 
 /**
  * Change the template based on the selected value.
+ *
  * @param {Event} e - The event object.
  * @returns {void}
  */
@@ -26,12 +27,11 @@ function changeTemplate(e: Event): void {
   const selectedValue = (e.target as HTMLSelectElement).value;
   const selectedTemplate = templates as Templates;
 
-  // If no template is selected, reset board
-  if (selectedValue === "") {
-    store.$reset();
-    return;
-  }
   store.$reset();
+
+  // If no template is selected, do nothing
+  if (selectedValue === "")
+    return;
 
   // Get the number of templates for the selected value
   const numOfTemplates = selectedTemplate[selectedValue].length;
