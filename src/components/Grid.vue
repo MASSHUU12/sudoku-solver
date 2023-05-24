@@ -6,28 +6,17 @@ const gridSize = 9;
 
 const store = useGridStore();
 const { grid, selected } = storeToRefs(store);
-
-/**
- * Updates the selected property of the store with the provided row and column values.
- *
- * @param {number} row - The row index of the selected cell.
- * @param {number} col - The column index of the selected cell.
- * @returns {void}
- */
-function select(row: number, col: number): void {
-  store.selected = [row, col];
-}
 </script>
 
 <template>
   <table class="border-collapse">
     <tr v-for="(row, rowIndex) in gridSize" :key="row" class="bg-slate-200 text-center">
-      <td @click="select(rowIndex, columnIndex)" v-for="(column, columnIndex) in gridSize" :key="column"
+      <td @click="store.select([rowIndex, columnIndex])" v-for="(column, columnIndex) in gridSize" :key="column"
         class="p-1 border border-gray-300 w-8 h-8 md:w-12 md:h-12 cursor-pointer hover:bg-slate-300" :class="[
-          `bg-slate-${(selected[0] === rowIndex && selected[1] == columnIndex) ? '400' : '200'}`,
-          (row % 3 === 0 && row !== gridSize) ? 'border-b-4' : '',
-          (column % 3 === 0 && column !== gridSize) ? 'border-r-4' : '',
-        ].join(' ')">
+          `bg-slate-${(selected[0] === rowIndex && selected[1] === columnIndex) ? '400' : '200'}`,
+          (row % 3 === 0 && row !== gridSize) && 'border-b-4',
+          (column % 3 === 0 && column !== gridSize) && 'border-r-4'
+        ]">
         <span class="text-lg md:text-2xl font-light select-none">
           <!-- Check if the value at the current grid position is 0, if not, render the value -->
           {{ grid[rowIndex][columnIndex] === 0

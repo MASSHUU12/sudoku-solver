@@ -11,7 +11,7 @@ export const useGridStore = defineStore('grid', {
   state: (): StoreProps => {
     return {
       grid: createGrid([9, 9], 0),
-      selected: [0, 0],
+      selected: [-1, -1],
       timeFinished: 0
     };
   },
@@ -37,6 +37,22 @@ export const useGridStore = defineStore('grid', {
       // Update the value at the specified position in the grid array
       // If new value is the same as current value set value to 0
       this.grid[row][col] = val === currentVal ? 0 : val;
+    },
+
+    /**
+     * Updates the selected property of the store with the provided row and column values.
+     *
+     * @param {number} row - The row index of the selected cell.
+     * @param {number} col - The column index of the selected cell.
+     * @returns {void}
+     */
+    select([row, col]: [number, number]): void {
+      // Deselect all cells
+      if (row === this.selected[0] && col === this.selected[1]) {
+        this.selected = [-1, -1];
+        return;
+      }
+      this.selected = [row, col];
     }
   }
 });
