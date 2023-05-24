@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import { useGridStore } from '@/stores/grid';
+import type { template } from '@/typings/types';
 import templates from "@/templates/templates.json";
 
 const { t } = useI18n();
@@ -24,7 +25,7 @@ interface Templates {
  * @returns {void}
  */
 function changeTemplate(e: Event): void {
-  const selectedValue = (e.target as HTMLSelectElement).value;
+  const selectedValue = (e.target as HTMLSelectElement).value as template;
   const selectedTemplate = templates as Templates;
 
   store.$reset();
@@ -41,11 +42,13 @@ function changeTemplate(e: Event): void {
 
   // Set the selected template in the grid store
   store.$state.grid = selectedTemplate[selectedValue][randomTemplateIndex];
+  store.$state.template = selectedValue;
 }
 </script>
 
 <template>
-  <select @change="(e: Event) => changeTemplate(e)" class="bg-slate-200 p-2 rounded-md mb-2 cursor-pointer">
+  <select @change="(e: Event) => changeTemplate(e)" :value="store.$state.template"
+    class="bg-slate-200 p-2 rounded-md mb-2 cursor-pointer">
     <option value="" selected>{{ t("examples.examples") }}</option>
     <option value="easy">{{ t("examples.easy") }}</option>
     <option value="medium">{{ t("examples.medium") }}</option>
